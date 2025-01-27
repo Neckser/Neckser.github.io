@@ -1,0 +1,210 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+}
+
+header {
+  background: #333;
+  color: #fff;
+  padding: 20px 0;
+}
+.container {
+  width: 95%;
+  margin: auto;
+  display: flex; /* Используем flexbox для контейнера */
+  align-items: center; /* Выравнивание по вертикали */
+  justify-content: space-between; /* Размещаем элементы по краям */
+}
+.header-left{
+  display: flex;
+  align-items: center; /* Выравниваем по вертикали */
+
+}
+.logotip {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+nav ul li button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+nav ul li button:hover {
+  background-color: #45a049;
+}
+
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+  text-align: center;
+}
+
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.home-container {
+  display: flex;
+  justify-content: space-between; /* Размещает элементы по краям */
+  align-items: center;             /* Выравнивает по вертикали */
+  width: 100%;                     /* Занимает всю ширину контейнера */
+}
+
+.home-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-start; /* Изменяем вертикальное выравнивание*/
+
+}
+.home-container p {
+  font-size: 25px;
+}
+
+.home-text {
+  flex: 1;
+  margin-right: 20px;
+  text-align: left;
+}
+
+.home-image {
+  flex: 1;
+  text-align: right;
+}
+.home-image img{
+  max-width: 100%;
+  height: auto;
+}
+
+#home h2 {
+  text-align: left;
+  width: auto;
+}
+
+.teamphoto {
+  border: 2px solid #333;
+}
+ №№№№№№
+ #products {
+   padding: 20px;
+   background: white;
+   border-radius: 5px;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ }
+
+#products h2{
+  text-align: center;
+  margin-bottom: 20px;
+}
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.product-item {
+  width: 250px;
+  border: 2px solid #333; /* Изменена толщина рамки */
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px;
+  text-align: center;
+  background: #f9f9f9;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.product-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.product-item h3 {
+  margin: 10px 0;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+#buy {
+  display: flex;           /* Делаем секцию flex-контейнером */
+  flex-direction: column;  /* Размещаем элементы вертикально */
+  align-items: center;     /* Центрируем по горизонтали */
+  text-align: center;      /* Выравниваем текст по центру */
+}
+
+#buy h2 {
+  margin-bottom: 20px;
+}
+
+#buy button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 30px; /* Увеличиваем padding */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 24px; /* Увеличиваем размер шрифта */
+  margin-top: 200px;
+}
+
+#buy button:hover {
+  background-color: #45a049;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
