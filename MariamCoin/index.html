@@ -59,8 +59,17 @@
         <div id="counter">0</div>
         <div id="image" onclick="incrementCounter(event)"></div>
     </div>
+    <div id="container">
+        <div id="counter">0</div>
+        <div id="image" onclick="incrementCounter(event)"></div>
+         <button onclick="closeWebApp()">Закрыть</button>
+    </div>
 
     <script>
+        function closeWebApp() {
+        sendCountToBot();
+        Telegram.WebApp.close();
+      }
         let count = 0;
 
         Telegram.WebApp.ready();
