@@ -1,107 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram WebApp</title>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000; /* Черный фон */
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-        #container {
-            text-align: center;
-            position: relative;
-        }
-        #counter {
-            font-size: 3em; /* Увеличенный размер шрифта */
-            margin-bottom: 20px;
-            color: white; /* Цвет текста счетчика */
-            user-select: none; /* Убирает выделение текста */
-            font-weight: bold; /* Более жирный шрифт */
-            border-radius: 10px; /* Скругленные углы */
-        }
-        #image {
-            width: 300px;
-            height: 300px;
-            background-image: url('https://i.postimg.cc/QtTMMfg4/image.png');
-            background-size: cover;
-            background-position: center;
-            cursor: pointer;
-        }
-        .increment {
-            position: absolute;
-            color: white;
-            font-size: 1.5em;
-            animation: fadeOut 1s ease-in-out forwards;
-            pointer-events: none;
-        }
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram WebApp</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000; /* Черный фон */
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    #main-container {
+      text-align: center;
+      position: relative;
+    }
+    #counter {
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: white;
+      user-select: none;
+      font-weight: bold;
+      border-radius: 10px;
+    }
+    #image {
+      width: 300px;
+      height: 300px;
+      background-image: url('https://i.postimg.cc/QtTMMfg4/image.png');
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    .increment {
+      position: absolute;
+      color: white;
+      font-size: 1.5em;
+      animation: fadeOut 1s ease-in-out forwards;
+      pointer-events: none;
+    }
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+    }
+    button {
+      background-color: #3498db; /* Цвет фона */
+      color: white; /* Цвет текста */
+      padding: 10px 20px; /* Отступы */
+      font-size: 1.2em;
+      border: none; /* Убираем рамку */
+      border-radius: 5px; /* Скругленные углы */
+      cursor: pointer; /* Меняем курсор при наведении */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Тень */
+      transition: background-color 0.3s, transform 0.2s; /* Анимация */
+    }
+    button:hover {
+      background-color: #2980b9; /* Изменение цвета фона при наведении */
+      transform: scale(1.05); /* Увеличение размера при наведении */
+    }
+  </style>
 </head>
 <body>
-    <div id="container">
-        <div id="counter">0</div>
-        <div id="image" onclick="incrementCounter(event)"></div>
-    </div>
-    <div id="container">
-        <div id="counter">0</div>
-        <div id="image" onclick="incrementCounter(event)"></div>
-         <button onclick="closeWebApp()">Закрыть</button>
-    </div>
+<div id="main-container">
+  <div id="counter">0</div>
+  <div id="image" onclick="incrementCounter(event)"></div>
+  <button onclick="closeWebApp()">Выйти</button>
+</div>
 
-    <script>
-        function closeWebApp() {
-        sendCountToBot();
-        Telegram.WebApp.close();
-      }
-        let count = 0;
+<script>
+  function closeWebApp() {
+    sendCountToBot();
+    Telegram.WebApp.close();
+  }
+  let count = 0;
 
-        Telegram.WebApp.ready();
+  Telegram.WebApp.ready();
 
-        Telegram.WebApp.onEvent('data_receive', function(data) {
-            count = parseInt(data) || 0;
-            document.getElementById('counter').innerText = count;
-        });
+  let initData = Telegram.WebApp.initDataUnsafe;
 
-        function incrementCounter(event) {
-            count++;
-            document.getElementById('counter').innerText = count;
+  if (initData && initData.clicks) {
+    count = parseInt(initData.clicks);
+    document.getElementById('counter').innerText = count;
+  }
 
-            const increment = document.createElement('div');
-            increment.className = 'increment';
-            increment.innerText = '+1';
-            increment.style.left = event.clientX + 'px';
-            increment.style.top = event.clientY + 'px';
-            document.body.appendChild(increment);
+  Telegram.WebApp.onEvent('data_receive', function(data) {
+    count = parseInt(data) || 0;
+    document.getElementById('counter').innerText = count;
+  });
 
-            setTimeout(() => {
-                increment.remove();
-            }, 1000);
-        }
 
-        function sendCountToBot() {
-            if (typeof Telegram.WebApp !== 'undefined') {
-                Telegram.WebApp.sendData(JSON.stringify({ clicks: count }));
-            }
-        }
+  function incrementCounter(event) {
+    count++;
+    document.getElementById('counter').innerText = count;
 
-        window.addEventListener('beforeunload', sendCountToBot);
-    </script>
+    const increment = document.createElement('div');
+    increment.className = 'increment';
+    increment.innerText = '+1';
+    increment.style.left = event.clientX + 'px';
+    increment.style.top = event.clientY + 'px';
+    document.body.appendChild(increment);
+
+    setTimeout(() => {
+      increment.remove();
+    }, 1000);
+  }
+
+  function sendCountToBot() {
+    if (typeof Telegram.WebApp !== 'undefined') {
+      Telegram.WebApp.sendData(JSON.stringify({ clicks: count }));
+    }
+  }
+</script>
 </body>
 </html>
