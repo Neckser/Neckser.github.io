@@ -11,7 +11,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #000; /* Черный фон */
+      background-color: #000;
       font-family: Arial, sans-serif;
       overflow: hidden;
     }
@@ -54,19 +54,19 @@
       }
     }
     button {
-      background-color: #3498db; /* Цвет фона */
-      color: white; /* Цвет текста */
-      padding: 10px 20px; /* Отступы */
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
       font-size: 1.2em;
-      border: none; /* Убираем рамку */
-      border-radius: 5px; /* Скругленные углы */
-      cursor: pointer; /* Меняем курсор при наведении */
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Тень */
-      transition: background-color 0.3s, transform 0.2s; /* Анимация */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s, transform 0.2s;
     }
     button:hover {
-      background-color: #2980b9; /* Изменение цвета фона при наведении */
-      transform: scale(1.05); /* Увеличение размера при наведении */
+      background-color: #2980b9;
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -78,22 +78,24 @@
 </div>
 
 <script>
-  function closeWebApp() {
-    sendCountToBot();
-    Telegram.WebApp.close();
-  }
   let count = 0;
 
   Telegram.WebApp.ready();
+  console.log("WebApp ready");
+
 
   let initData = Telegram.WebApp.initDataUnsafe;
+  console.log("initData", initData);
 
   if (initData && initData.clicks) {
     count = parseInt(initData.clicks);
+    console.log("count from initData:", count)
     document.getElementById('counter').innerText = count;
   }
 
+
   Telegram.WebApp.onEvent('data_receive', function(data) {
+    console.log("data_receive event:", data)
     count = parseInt(data) || 0;
     document.getElementById('counter').innerText = count;
   });
@@ -102,7 +104,6 @@
   function incrementCounter(event) {
     count++;
     document.getElementById('counter').innerText = count;
-
     const increment = document.createElement('div');
     increment.className = 'increment';
     increment.innerText = '+1';
@@ -115,10 +116,19 @@
     }, 1000);
   }
 
+
   function sendCountToBot() {
     if (typeof Telegram.WebApp !== 'undefined') {
+      console.log("sendCountToBot:",count)
       Telegram.WebApp.sendData(JSON.stringify({ clicks: count }));
     }
+  }
+
+  function closeWebApp() {
+    console.log("closeWebApp called");
+    sendCountToBot();
+    Telegram.WebApp.close();
+    console.log("WebApp closed");
   }
 </script>
 </body>
